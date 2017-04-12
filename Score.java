@@ -13,7 +13,7 @@ class Score{
 			System.out.print("names["+i+"]= ");
 			scan.nextLine();
 			names[i] = scan.nextLine();
-			System.out.print("scores["+i+"]= ");
+			System.out.print( "scores[" + i + "]= " );
 			scores[i] = scan.nextDouble();
 			System.out.println();
 		}

@@ -1,26 +1,51 @@
-class Employee{
+package Bai2;
 
-	String id;
-	String name;
-	int yearBirthday;
-	int salary;
-
-	Employee(String id, String name, int yearBirthday, int salary){
-	
-		this.id = id;
-		this.name = name;
-		this.yearBirthday = yearBirthday;
-		this.salary = salary;
+public class Employee 
+{
+	private String ms,hvt;
+	private int ns,mlcb;
+	public Employee()
+	{
+		this("","",0,0);
+	}
+	public Employee(String ms,String hvt,int ns,int mlcb)
+	{
+		this.ms=ms;
+		this.hvt=hvt;
+		this.ns=ns;
+		this.mlcb=mlcb;
+	}
+	public void setMs(String ms)
+	{
+		this.ms=ms;
+	}
+	public String getMs()
+	{
+		return ms;
+	}
+	public void setHvt(String hvt)
+	{
+		this.hvt=hvt;
+	}
+	public String getHvt()
+	{
+		return hvt;
+	}
+	public void setNs(int ns)
+	{
+		this.ns=ns;
+	}
+	public int getNs()
+	{
+		return ns;
+	}
+	public void setMlcb(int mlcb)
+	{
+		this.mlcb=mlcb;
+	}
+	public int getMlcb()
+	{
+		return mlcb;
 	}
 	
-	Employee(){
-
-	}
-
-	void printInfo(){
-		
-		System.out.println(this.id + "\n" + this.name + "\n" + this.yearBirthday + "\n" + salary);
-	}
-
-
 }

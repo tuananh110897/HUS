@@ -1,94 +1,70 @@
+package Bai2;
 import java.util.*;
-
-public class EmployeeTest{
-
-	private static Scanner s;
-
-	public static int sumSalary(Employee[] a){
-
-		int sum = 0;
-		for (int i = 0; i < a.length; i++ )
-			sum += a[i].salary;
-		return sum;
-	}
-	
-	public static int getMaxSalary(Employee[] a){
-
-		int max = Integer.MIN_VALUE;
-		for (int i = 0; i < a.length; i++)
-			max = (max > a[i].salary)? max:a[i].salary;
-		return max;
-	}
-
-	public static int getMinSalary(Employee[] a){
-
-		int min = Integer.MAX_VALUE;
-		for (int i = 0; i < a.length; i++)
-			min = (min < a[i].salary)? min:a[i].salary;
-		return min;	
-	}
-
-	public static void input(Employee[] a){
-	
-		System.out.println("nhap ID - ten - nam sinh - luong");
+public class EmployeeTest 
+{
+	public static void main(String args[])
+	{
+		Scanner scan = new Scanner(System.in);
+		int select;
+		Quantity quantity = new Quantity();
+		System.out.print("Nhập số lượng nhân viên : ");
+		quantity.setQuantity(Integer.parseInt(scan.nextLine().trim()));
 		
-		for (Employee element: a)
-			element = new Employee(s.nextLine(), s.nextLine(),Integer.parseInt(s.nextLine()), Integer.parseInt( s.nextLine() ) );
-		
-	}
-
-	public static void soft(Employee[] a){
-
-		for(int i = 0; i < a.length; i++)
-			for (int j = i; j < a.length; j++){
-				if (a[i].salary > a[j].salary){
-					Employee temp = new Employee();
-					a[i] = temp;
-					a[i] = a[j];
-					a[j] = temp;	
+		Employee[] employee = new Employee[quantity.getQuantity()];
+		for (int i=0;i<employee.length;i++)
+		{
+			employee[i] = new Employee();
+			System.out.println("Nhập dữ liệu của sinh viên thứ : " + (i+1));
+			System.out.print("Mã số : ");
+			employee[i].setMs(scan.nextLine());
+			System.out.print("Họ và tên : ");
+			employee[i].setHvt(scan.nextLine());
+			System.out.print("Năm sinh : ");
+			employee[i].setNs(Integer.parseInt(scan.nextLine().trim()));
+			System.out.print("Mức lương cơ bản : ");
+			employee[i].setMlcb(Integer.parseInt(scan.nextLine().trim()));
+		}
+		Processing.printMenu();
+		do
+		{
+			System.out.print("Nhập yêu cầu : ");
+			select = scan.nextInt();
+			switch (select)
+			{
+				case 1 : 
+				{
+					System.out.println("Danh sách nhân viên");
+					Processing.printList(employee);
+					break;
+				}
+				case 2 :
+				{
+					System.out.println("Tổng số tiền công ty phải trả trong 1 tháng là : "+ Processing.sumMlcb(employee));
+					break;
+				}
+				case 3 :
+				{
+					Processing.maxMlcb(employee);
+					break;
+				}
+				case 4 :
+				{
+					Processing.minMlcb(employee);
+					break;
+				}
+				case 5 :
+				{
+					Processing.sortEmployee(employee);
+					break;
+				}
+				case 6 : break;
+				default : 
+				{
+					System.out.println("Xin nhập số từ 1 đến 6");
+					break;			
 				}
 			}
+		}
+		while (select!=6);
 	}
-
-	public static void solve(){
-
-		System.out.println("So nhan vien:");
-
-		Employee[] a = new Employee[Integer.parseInt( s.nextLine() ) ];
-		input(a);
-		int n; 
-
-		do {	
-			System.out.println("Nhap lua chon");
-			n = s.nextInt();
-
-			switch (n){
-				case 1:System.out.println("Tong so luong phai tra la: " + sumSalary(a));
-						break;
-				case 2:System.out.println("cong nhan luong cao nhat la:");
-					for(Employee element: a)
-						if (element.salary == getMaxSalary(a))		
-							element.printInfo();
-						break;					
-				case 3:
-					System.out.println("cong nhan luong thap nhat la:");
-					for(Employee element: a)
-						if (element.salary == getMinSalary(a))
-							element.printInfo();	
-					break;
-				case 4:			
-					soft(a);
-					break;
-			}			
-
-		} while (n != 0); 
-		
-	}
-
-	public static void main(String[] args){
-		
-		s = new Scanner(System.in);
-		solve();
-	}
-
 }

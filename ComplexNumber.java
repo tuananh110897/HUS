@@ -1,81 +1,75 @@
-class ComplexNumber{
+package Bai3;
 
-// 17/03/2017 20:03: con phep chia va phep luy thua =.=
-// 18/03/2017 15:40: check xong den phep nhan; 
-
-	private	double a, b;
-
-	public ComplexNumber(int a, int b){
-		this.a = a;
-		this.b = b;
+public class ComplexNumber 
+{
+	private double realPart,imaginaryPart;
+	public ComplexNumber()
+	{
+		this(0,0);
 	}
-	
-	public ComplexNumber(){
-
+	public ComplexNumber(double realPart,double imaginaryPart)
+	{
+		this.realPart=realPart;
+		this.imaginaryPart=imaginaryPart;
 	}
-
-	void printInfo(){
-		System.out.println(a + " + " + b + "i");
+	public void setRealPart(double realPart)
+	{
+		this.realPart=realPart;
 	}
-
-	ComplexNumber add(ComplexNumber other){
-		
-		this.a += other.a;
-		this.b += other.b;
-		return this;
-
+	public double getRealPart()
+	{
+		return this.realPart;
 	}
-
-	String toString(){
-		return a + " + " + b + " i";
+	public void setImaginaryPart(double imaginaryPart)
+	{
+		this.imaginaryPart=imaginaryPart;
 	}
-
-	ComplexNumber subtract(ComplexNumber other){
-		
-		this.a -= other.a;
-		this.b -= other.b;
-		return this;
-
+	public double getImaginaryPart()
+	{
+		return this.imaginaryPart;
 	}
-
-	ComplexNumber multiply(ComplexNumber other){
-
-		ComplexNumber result = new ComplexNumber();
-		result.a = this.a * other.a - this.b * other.b;
-		result.b = ( this.a * other.b) + (this.b * other.a );
-	//			number[0].a * number[1].b + number[0].b * number[1].a 
-		return result;
-
+	public ComplexNumber add(ComplexNumber other)
+	{
+		ComplexNumber x = new ComplexNumber();
+		x.imaginaryPart = this.imaginaryPart + other.imaginaryPart;
+		x.realPart = this.realPart + other.realPart;
+		return x;
 	}
-
-	ComplexNumber divide(ComplexNumber other){
-
-		other.b *= -1;
-		ComplexNumber multiply = new ComplexNumber();
-		multiply = multiply(other);
-		// b^2 = (-b)^2;
-		this.a = multiply.a / ( other.a * other.a + other.b * other.b );		
-		this.b = multiply.b / ( other.a * other.a + other.b * other.b );		
-
-		return this;
+	public ComplexNumber subtract(ComplexNumber other)
+	{
+		ComplexNumber x = new ComplexNumber();
+		x.imaginaryPart = this.imaginaryPart - other.imaginaryPart;
+		x.realPart = this.realPart - other.realPart;
+		return x;
 	}
-
-	ComplexNumber pow(int n){
-
-		ComplexNumber number = new ComplexNumber();
-			number.a = 1;
-			number.b = 0;
-			
-
-		if (n == 0) { 
-			return number;
-		} //else if (n > 0)
-			return multiply( pow(n-1) );
-		else{
-			n = -n;
-			number = divide( multiply( pow(n-1) ) );
-			return number;
-		} 
+	public ComplexNumber multiply(ComplexNumber other)
+	{
+		ComplexNumber x = new ComplexNumber();
+		x.imaginaryPart = this.imaginaryPart*other.realPart + this.realPart*other.imaginaryPart;
+		x.realPart = this.realPart*other.realPart - this.imaginaryPart*other.imaginaryPart;
+		return x;
 	}
-
+	public ComplexNumber divide(ComplexNumber other)
+	{
+		ComplexNumber x = new ComplexNumber();
+		double sumsquare = other.realPart*other.realPart+other.imaginaryPart*other.imaginaryPart;
+		x.imaginaryPart = (this.imaginaryPart*other.realPart-this.realPart*other.imaginaryPart)/sumsquare;
+		x.realPart = (this.realPart*other.realPart+this.imaginaryPart*other.imaginaryPart)/sumsquare;
+		return x;
+	}
+	public ComplexNumber pow(int n)
+	{
+		ComplexNumber x = new ComplexNumber(this.realPart,this.imaginaryPart);
+		ComplexNumber y = x;
+		for (int i=1;i<n;i++)
+			y = y.multiply(x);
+		return y;
+	}
+	public String toString()
+	{
+		if (this.realPart==0) return this.imaginaryPart+""; 
+		if (this.imaginaryPart<0) return this.realPart + " - " + (-this.imaginaryPart) +"i";
+		if (this.imaginaryPart==0) return this.realPart+"";
+		else return this.realPart + " + " + this.imaginaryPart +"i";
+	}
 }
